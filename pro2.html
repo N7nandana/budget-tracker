@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:rgb(247, 215, 255);;
+        }
+
+        #budget-container {
+            background-color: rgb(216, 155, 243);
+            margin: 20px auto;
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 6px rgb(166, 77, 204);
+ }
+        
+
+        h1 {
+            color: rgb(78, 7, 83);
+            text-align: center;
+        }
+
+        #expense-form {
+            margin-top: 20px;
+            text-align: center;
+            border: none;
+        }
+        #expense-amount {
+            color: rgb(78, 7, 83);
+            display: flex;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        #expense-description {
+            color: rgb(78, 7, 83);
+            display: flex;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        #expense-form label, #expense-form input, #expense-form button {
+            display: flex;
+            margin: 10px;
+        }
+
+        #expense-list {
+            background-color: rgb(247, 215, 255);;
+            margin-top: 20px;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        #expense-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+     .expense-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            border-bottom: 1px solid rgb(191, 164, 241) 24, 226;
+        }
+
+        .expense-item:last-child {
+            border-bottom: none;
+        }
+
+        .expense-item span {
+            flex: 1;
+        }
+
+        .expense-item .delete-btn {
+            background-color: rgb(216, 155, 243);;
+            color: rgb(247, 214, 255);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        h2{
+            color:#4f085460 ;
+        }
+        footer {
+             text-align: center;
+             padding: 3px;
+             background-color:  rgb(216, 155, 243);
+             color: rgb(247, 214, 255);
+            }
+    </style>
+</head>
+<body>
+    <div id="budget-container">
+        <h1>Budget Tracker</h1>
+        <form id="expense-form">
+            <label for="expense-description">Expense Description</label>
+            <input type="text" id="expense-description" placeholder="E.g., Groceries" required>
+
+            <label for="expense-amount">Expense Amount</label>
+            <input type="number" id="expense-amount" placeholder="E.g., 50.00" step="0.01" required>
+
+            <button type="button" onclick="addExpense()">Add Expense</button>
+        </form>
+
+        <div id="expense-list">
+            <h2>Expense List</h2>
+            <ul id="expenses">
+                <!-- Expense items will be dynamically added here -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function addExpense() {
+            const description = document.getElementById('expense-description').value;
+            const amount = parseFloat(document.getElementById('expense-amount').value);
+
+            if (description && !isNaN(amount)) {
+                const expensesList = document.getElementById('expenses');
+                const listItem = document.createElement('li');
+                listItem.className = 'expense-item';
+                listItem.innerHTML = `
+                    <span>${description}</span>
+                    <span>$${amount.toFixed(2)}</span>
+                    <button class="delete-btn" onclick="deleteExpense(this)">Delete</button>
+                `;
+                expensesList.appendChild(listItem);
+
+                document.getElementById('expense-description').value = '';
+                document.getElementById('expense-amount').value = '';
+            }
+        }
+
+        function deleteExpense(button) {
+            const listItem = button.parentElement;
+            listItem.remove();
+        }
+    </script>
+</body>
+<footer>
+    <p>Wedding Planning Checklist and Budget Tracker &copy;</p>
+    <form>
+        <input type="button" value="Go back!" onclick="history.back()">
+       </form>
+</footer>
+</html>
